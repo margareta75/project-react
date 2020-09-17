@@ -3,21 +3,26 @@ import { HashRouter as Router, Route } from "react-router-dom";
 import Todos from "./Todos";
 import Header from "./Header";
 import AddTodo from "./AddTodo";
-import { v4 as uuidv4 } from "uuid";
-import "./App.css";
 import About from "./pages/About";
+import AboutMe from "./pages/AboutMe";
+import axios from "axios";
+import "./App.css";
+//import { v4 as uuidv4 } from "uuid";
 
 class App extends Component {
   state = {
-    todos: [
-      { id: uuidv4(), title: "städa", completed: false },
-      { id: uuidv4(), title: "handla", completed: false },
-      { id: uuidv4(), title: "diska", completed: false },
-    ],
+    todos: [],
   };
+
+  componentDidMount() {
+    axios
+      .get("https://jsonplaceholder.typicode.com/todos?_limit=10")
+      .then((response) => this.setState({ todos: response.data }));
+  }
 
   // Toggle completed
   markComplete = (id) => {
+    console.log("toggled completed todo: ", id);
     this.setState({
       todos: this.state.todos.map((todo) => {
         if (todo.id === id) {
@@ -26,26 +31,31 @@ class App extends Component {
         return todo;
       }),
     });
-    console.log(id);
-    console.log("clicked");
   };
 
   // Delete Todo
   deleteTodo = (id) => {
     console.log("deleted todo: ", id);
-    const newState = this.state.todos.filter((todo) => todo.id !== id);
-    this.setState({ todos: newState });
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then((response) =>
+        this.setState({
+          todos: [...this.state.todos.filter((todo) => todo.id !== id)],
+        })
+      );
   };
 
   //Add Todo
   addTodo = (title) => {
-    console.log(title);
-    const newTodo = {
-      id: uuidv4(),
-      title: title,
-      completed: false,
-    };
-    this.setState({ todos: [...this.state.todos, newTodo] });
+    console.log("added todo: ", title);
+    axios
+      .post("https://jsonplaceholder.typicode.com/todos", {
+        title,
+        completed: false,
+      })
+      .then((response) =>
+        this.setState({ todos: [...this.state.todos, response.data] })
+      );
   };
 
   render() {
@@ -69,6 +79,7 @@ class App extends Component {
               )}
             />
             <Route path="/about" component={About} />
+            <Route path="/aboutme" component={AboutMe} />
           </div>
         </div>
       </Router>

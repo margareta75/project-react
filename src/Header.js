@@ -10,7 +10,11 @@ function Header() {
       </Link>{" "}
       |{" "}
       <Link to="/about" style={linkStyle}>
-        About
+        About app
+      </Link>{" "}
+      |{" "}
+      <Link to="/aboutme" style={linkStyle}>
+        About me
       </Link>
     </header>
   );

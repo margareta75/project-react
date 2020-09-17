@@ -1,0 +1,20 @@
+.container {
+  padding: 0 1rem;
+}
+
+.btn {
+  display: inline-block;
+  border: outset;
+  background: cornflowerblue;
+  color: white;
+  padding: 7px 20px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: deeppink;
+}
+
+h2 {
+  color: teal;
+}

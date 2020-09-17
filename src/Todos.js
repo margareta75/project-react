@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 
 class Todos extends Component {
   render() {
-    //console.log(this.props.todos);
     const todos = this.props.todos;
     return (
       <div>
@@ -25,6 +24,8 @@ class Todos extends Component {
 
 Todos.propTypes = {
   todos: PropTypes.array.isRequired,
+  markCompletePropApp: PropTypes.func.isRequired,
+  deleteTodoPropApp: PropTypes.func.isRequired,
 };
 
 export default Todos;

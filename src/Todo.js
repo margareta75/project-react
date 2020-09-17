@@ -8,14 +8,13 @@ class Todo extends Component {
       marginRight: "10px",
       backgroundColor: "turquoise",
       padding: "10px",
-      borderBottom: "1px #708090 dotted",
+      border: "1px #708090 inset",
       textDecoration: this.props.todoProp.completed ? "line-through" : "none",
     };
   }
 
   render() {
     const { id, title } = this.props.todoProp;
-
     return (
       <div style={this.getStyle()}>
         <div>
@@ -36,18 +35,20 @@ class Todo extends Component {
   }
 }
 
-Todo.propTypes = {
-  todoProp: PropTypes.object.isRequired,
-};
-
 const buttonStyle = {
   background: "DeepPink",
-  color: "#fff",
-  border: "none",
+  color: "white",
+  border: "outset",
   padding: "5px 10px",
   borderRadius: "50%",
   cursor: "pointer",
   float: "right",
+};
+
+Todo.propTypes = {
+  todoProp: PropTypes.object.isRequired,
+  markCompletePropTodos: PropTypes.func.isRequired,
+  deleteTodoPropTodos: PropTypes.func.isRequired,
 };
 
 export default Todo;
